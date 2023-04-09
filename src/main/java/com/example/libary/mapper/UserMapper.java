@@ -1,5 +1,6 @@
 package com.example.libary.mapper;
 
+import com.example.libary.controller.request.UserPageRequest;
 import com.example.libary.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -13,6 +14,8 @@ import java.util.List;
  */
 @Mapper
 public interface UserMapper {
-    @Select ("select * from user")
-    List<User> listUsers();
+    // @Select ("select * from user")
+    List<User> list();
+
+    List<User> listByCondition(UserPageRequest userPageRequest);
 }

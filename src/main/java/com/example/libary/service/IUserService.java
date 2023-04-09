@@ -1,5 +1,6 @@
 package com.example.libary.service;
 
+import com.example.libary.controller.request.UserPageRequest;
 import com.example.libary.entity.User;
 
 import java.util.List;
@@ -10,5 +11,6 @@ import java.util.List;
  * @DATE 2023/4/8 22:41
  */
 public interface IUserService {
-    List<User> listUsers();
+    List<User> list();
+    Object page(UserPageRequest userPageRequest);
 }

@@ -13,4 +13,6 @@ import java.util.List;
 public interface IUserService {
     List<User> list();
     Object page(UserPageRequest userPageRequest);
+
+    void save(User user);
 }

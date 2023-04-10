@@ -5,11 +5,7 @@ import com.example.libary.controller.request.UserPageRequest;
 import com.example.libary.entity.User;
 import com.example.libary.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
@@ -23,6 +19,12 @@ import java.util.List;
 public class UserController {
     @Autowired
     IUserService userService;
+    @GetMapping("/save")
+    public Result save(@RequestBody User user){
+
+        userService.save(user);
+        return Result.success();
+    }
     @GetMapping("/list")
     public Result list(){
         List<User> users = userService.list();
@@ -30,7 +32,7 @@ public class UserController {
     }
     @GetMapping("/page")
     public Result page(UserPageRequest userPageRequest){
-        System.out.println(Result.success().getData());
+        // System.out.println(Result.success().getData());
         return  Result.success(userService.page(userPageRequest));
     }
 }

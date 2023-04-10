@@ -25,10 +25,12 @@ public class Result {
     public static Result success(Object data){
         Result result = new Result();
         result.setCode(SUCCESS_CODE);
+        result.setData(data);
         return result;
     }
     public static Result error(String msg){
         Result result = new Result();
+        result.setCode(ERROR_CODE);
         result.setMsg(msg);
         return result;
     }

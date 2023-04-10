@@ -3,7 +3,6 @@ package com.example.libary.mapper;
 import com.example.libary.controller.request.UserPageRequest;
 import com.example.libary.entity.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -18,4 +17,6 @@ public interface UserMapper {
     List<User> list();
 
     List<User> listByCondition(UserPageRequest userPageRequest);
+
+    void save(User user);
 }

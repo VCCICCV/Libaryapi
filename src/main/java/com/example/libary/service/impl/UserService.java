@@ -1,5 +1,7 @@
 package com.example.libary.service.impl;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
 import com.example.libary.controller.request.UserPageRequest;
 import com.example.libary.entity.User;
 import com.example.libary.mapper.UserMapper;
@@ -9,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 
 /**
@@ -22,7 +25,6 @@ public class UserService implements IUserService {
     UserMapper userMapper;
     @Override
     public List<User> list() {
-
         return userMapper.list();
     }
     @Override
@@ -30,5 +32,13 @@ public class UserService implements IUserService {
         PageHelper.startPage(userPageRequest.getPageNum(),userPageRequest.getPageSize());
         List<User> users = userMapper.listByCondition(userPageRequest);
         return new PageInfo<>(users);
+    }
+
+    @Override
+    public void save(User user) {
+        Data date = new Data();
+        // 当作卡号处理
+        user.setUsername(DateUtil.format(date,"yyyyMMdd") + IdUtil.fastSimpleUUID());
+        userMapper.save(user);
     }
 }

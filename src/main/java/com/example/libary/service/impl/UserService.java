@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public class UserService implements IUserService {
 
     @Override
     public void save(User user) {
-        Data date = new Data();
+        Date date = new Date();
         // 当作卡号处理
         user.setUsername(DateUtil.format(date,"yyyyMMdd") + IdUtil.fastSimpleUUID());
         userMapper.save(user);

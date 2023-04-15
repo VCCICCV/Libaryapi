@@ -1,6 +1,7 @@
 package com.example.libary.mapper;
 
 import com.example.libary.controller.request.BaseRequest;
+import com.example.libary.entity.Admin;
 import com.example.libary.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,17 +13,15 @@ import java.util.List;
  * @DATE 2023/4/8 22:38
  */
 @Mapper
-public interface UserMapper {
-    // @Select ("select * from user")
-    List<User> list();
+public interface AdminMapper {
+    List<Admin> list();
+    List<Admin> listByCondition(BaseRequest baseRequest);
 
-    List<User> listByCondition(BaseRequest baseRequest);
+    void save(Admin obj);
 
-    void save(User user);
+    Admin getById(Integer id);
 
-    User getById(Integer id);
-
-    void updateById(User user);
+    void updateById(Admin admin);
 
     void deleteById(Integer id);
 }

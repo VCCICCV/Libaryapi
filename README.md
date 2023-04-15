@@ -36,3 +36,5 @@ mybatis:
     <version>5.3.0</version>
 </dependency> 
 ```
+- ctrl+alt+o   清除无用的导入
+- ctrl+alt+l   格式化

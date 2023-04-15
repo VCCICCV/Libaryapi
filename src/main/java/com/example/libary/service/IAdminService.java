@@ -1,6 +1,7 @@
 package com.example.libary.service;
 
 import com.example.libary.controller.request.BaseRequest;
+import com.example.libary.entity.Admin;
 import com.example.libary.entity.User;
 import com.github.pagehelper.PageInfo;
 
@@ -11,15 +12,16 @@ import java.util.List;
  * @AUTHOR VCCICCV
  * @DATE 2023/4/8 22:41
  */
-public interface IUserService {
-    List<User> list();
-    PageInfo<User> page(BaseRequest baseRequest);
+public interface IAdminService {
+    List<Admin> list();
 
-    void save(User user);
+    PageInfo<Admin> page(BaseRequest baseRequest);
 
-    User getById(Integer id);
+    void save(Admin obj);
 
-    void update(User user);
+    Admin getById(Integer id);
+
+    void update(Admin obj);
 
     void deleteById(Integer id);
 }

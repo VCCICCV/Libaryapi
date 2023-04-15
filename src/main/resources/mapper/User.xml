@@ -6,8 +6,11 @@
 
     <insert id="save">
         insert into user(name, username, age, sex, phone, address)
-        values (#{name}, #{username}, #{age}, #{sex}, #{phone}, {address})
+        values (#{name}, #{username}, #{age}, #{sex}, #{phone}, #{address})
     </insert>
+    <update id="updateById">
+        update user set name = #{name},age = #{age},sex = #{sex},phone = #{phone},address = #{address} where id = #{id}
+    </update>
     <select id="list" resultType="com.example.libary.entity.User">
         select *
         from user
@@ -23,5 +26,8 @@
             </if>
         </where>
         order by id desc
+    </select>
+    <select id="getById" resultType="com.example.libary.entity.User">
+        select * from user where id = #{id}
     </select>
 </mapper>

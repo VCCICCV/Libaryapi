@@ -42,4 +42,14 @@ public class UserService implements IUserService {
         user.setUsername(DateUtil.format(date,"yyyyMMdd") + IdUtil.fastSimpleUUID());
         userMapper.save(user);
     }
+
+    @Override
+    public User getById(Integer id) {
+        return userMapper.getById(id);
+    }
+
+    @Override
+    public void update(User user) {
+        userMapper.updateById(user);
+    }
 }

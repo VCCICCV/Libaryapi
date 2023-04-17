@@ -38,3 +38,6 @@ mybatis:
 ```
 - ctrl+alt+o   清除无用的导入
 - ctrl+alt+l   格式化
+>常见错误
+Source must not be null
+未考虑异常情况

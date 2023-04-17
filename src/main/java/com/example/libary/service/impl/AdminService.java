@@ -1,12 +1,17 @@
 package com.example.libary.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.example.libary.controller.dto.LoginDTO;
 import com.example.libary.controller.request.BaseRequest;
+import com.example.libary.controller.request.LoginRequest;
 import com.example.libary.entity.Admin;
 import com.example.libary.mapper.AdminMapper;
 import com.example.libary.service.IAdminService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +22,7 @@ import java.util.List;
  * @AUTHOR VCCICCV
  * @DATE 2023/4/8 22:42
  */
+@Slf4j
 @Service
 public class AdminService implements IAdminService {
     @Autowired
@@ -36,7 +42,7 @@ public class AdminService implements IAdminService {
 
     @Override
     public void save(Admin obj) {
-        // // 默认密码 123
+        // // 默认密码 123123
         // if (StrUtil.isBlank(obj.getPassword())) {
         //     obj.setPassword(DEFAULT_PASS);
         // }
@@ -64,5 +70,18 @@ public class AdminService implements IAdminService {
     @Override
     public void deleteById(Integer id) {
         adminMapper.deleteById(id);
+    }
+
+    @Override
+    public LoginDTO login(LoginRequest request) {
+        try {
+            Admin admin = adminMapper.getByUsernameAndPassword(request);
+            LoginDTO loginDTO = new LoginDTO();
+            BeanUtils.copyProperties(admin,loginDTO);
+            return loginDTO;
+        } catch (Exception e) {
+            log.error("登陆异常",e);
+            return null;
+        }
     }
 }

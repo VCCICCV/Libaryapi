@@ -41,3 +41,29 @@ mybatis:
 >常见错误
 Source must not be null
 未考虑异常情况
+```java
+// 全局异常处理
+@RestControllerAdvice
+@Slf4j
+
+public class ExceptionHandle {
+    @ExceptionHandler(value = Exception.class)
+    public Result exceptionError(Exception e){
+        log.error("系统错误",e);
+        return Result.error("系统错误");
+    }
+    @ExceptionHandler (value = ServiceException.class)
+    public Result serviceExceptionError(ServiceException e) {
+        log.error("业务异常", e);
+        return Result.error(e.getMessage());
+    }
+}
+```
+```java
+public class ServiceException extends RuntimeException{
+    public ServiceException(String code, String message) {
+        super(message);
+        this.code = code;
+    }
+}
+```

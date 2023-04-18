@@ -5,6 +5,7 @@ import com.example.libary.controller.dto.LoginDTO;
 import com.example.libary.controller.request.BaseRequest;
 import com.example.libary.controller.request.LoginRequest;
 import com.example.libary.entity.Admin;
+import com.example.libary.exception.ServiceException;
 import com.example.libary.mapper.AdminMapper;
 import com.example.libary.service.IAdminService;
 import com.github.pagehelper.PageHelper;
@@ -74,14 +75,12 @@ public class AdminService implements IAdminService {
 
     @Override
     public LoginDTO login(LoginRequest request) {
-        try {
-            Admin admin = adminMapper.getByUsernameAndPassword(request);
-            LoginDTO loginDTO = new LoginDTO();
-            BeanUtils.copyProperties(admin,loginDTO);
-            return loginDTO;
-        } catch (Exception e) {
-            log.error("登陆异常",e);
-            return null;
+        Admin admin = adminMapper.getByUsernameAndPassword(request);
+        if (admin == null){
+            throw new ServiceException("用户名或密码错误");
         }
+        LoginDTO loginDTO = new LoginDTO();
+        BeanUtils.copyProperties(admin,loginDTO);
+        return loginDTO;
     }
 }

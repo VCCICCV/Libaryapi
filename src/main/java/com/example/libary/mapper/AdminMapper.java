@@ -5,6 +5,7 @@ import com.example.libary.controller.request.LoginRequest;
 import com.example.libary.entity.Admin;
 import com.example.libary.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,5 +27,6 @@ public interface AdminMapper {
 
     void deleteById(Integer id);
 
-    Admin getByUsernameAndPassword(LoginRequest request);
+    Admin getByUsernameAndPassword(@Param("username") String username, @Param ("password") String password);
+    Admin getByUsername(String username);
 }

@@ -1,6 +1,6 @@
 package com.example.libary.service.impl;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
 import com.example.libary.controller.dto.LoginDTO;
 import com.example.libary.controller.request.BaseRequest;
 import com.example.libary.controller.request.LoginRequest;
@@ -12,12 +12,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+
 /**
  * @PROJECT_NAME Libaryapi
  * @AUTHOR VCCICCV
@@ -30,13 +30,15 @@ public class AdminService implements IAdminService {
     AdminMapper adminMapper;
     private static final String DEFAULT_PASS = "123";
     private static final String PASS_SALT = "123";
+
     @Override
     public List<Admin> list() {
         return adminMapper.list();
     }
+
     @Override
     public PageInfo<Admin> page(BaseRequest baseRequest) {
-        PageHelper.startPage(baseRequest.getPageNum(),baseRequest.getPageSize());
+        PageHelper.startPage(baseRequest.getPageNum(), baseRequest.getPageSize());
         List<Admin> users = adminMapper.listByCondition(baseRequest);
         return new PageInfo<>(users);
     }
@@ -57,6 +59,7 @@ public class AdminService implements IAdminService {
         adminMapper.save(obj);
 
     }
+
     @Override
     public Admin getById(Integer id) {
         return adminMapper.getById(id);
@@ -75,12 +78,29 @@ public class AdminService implements IAdminService {
 
     @Override
     public LoginDTO login(LoginRequest request) {
-        Admin admin = adminMapper.getByUsernameAndPassword(request);
-        if (admin == null){
+        Admin admin = null;
+        try {
+            admin = adminMapper.getByUsername(request.getUsername());
+        } catch (Exception e) {
+            log.error("根据用户名{} 查询出错", request.getUsername());
+            throw new ServiceException("用户名错误");
+        }
+        if (admin == null) {
             throw new ServiceException("用户名或密码错误");
         }
+        // 判断密码是否合法
+        String securePass = securePass(request.getPassword());
+        if (!securePass.equals(admin.getPassword())) {
+            throw new ServiceException("用户名或密码错误");
+        }
+        if (!admin.isStatus()) {
+            throw new ServiceException("当前用户处于禁用状态，请联系管理员");
+        }
         LoginDTO loginDTO = new LoginDTO();
-        BeanUtils.copyProperties(admin,loginDTO);
+        BeanUtils.copyProperties(admin, loginDTO);
         return loginDTO;
+    }
+    private String securePass(String password) {
+        return SecureUtil.md5(password + PASS_SALT);
     }
 }

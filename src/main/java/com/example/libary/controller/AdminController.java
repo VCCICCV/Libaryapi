@@ -26,9 +26,6 @@ public class AdminController {
     @PostMapping ("/login")
     public Result login(@RequestBody LoginRequest request) {
         LoginDTO login = adminService.login(request);
-        // if (login == null){
-        //     return Result.error("用户名和密码错误");
-        // }
         return Result.success(login);
     }
 

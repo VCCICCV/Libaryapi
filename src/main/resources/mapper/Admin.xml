@@ -15,6 +15,9 @@
             updatetime = #{updatetime}
         where id = #{id}
     </update>
+    <update id="updatePassword">
+        update admin set password = #{newPass} where username = #{username} and password = #{password}
+    </update>
     <delete id="deleteById">
         delete
         from admin

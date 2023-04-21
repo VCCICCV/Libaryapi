@@ -4,10 +4,12 @@ import cn.hutool.crypto.SecureUtil;
 import com.example.libary.controller.dto.LoginDTO;
 import com.example.libary.controller.request.BaseRequest;
 import com.example.libary.controller.request.LoginRequest;
+import com.example.libary.controller.request.PasswordRequest;
 import com.example.libary.entity.Admin;
 import com.example.libary.exception.ServiceException;
 import com.example.libary.mapper.AdminMapper;
 import com.example.libary.service.IAdminService;
+import com.example.libary.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -98,7 +100,19 @@ public class AdminService implements IAdminService {
         }
         LoginDTO loginDTO = new LoginDTO();
         BeanUtils.copyProperties(admin, loginDTO);
+        // 生成token
+        String token = TokenUtils.genToken(String.valueOf(admin.getId()), admin.getPassword());
+        loginDTO.setToken(token);
         return loginDTO;
+    }
+    @Override
+    public void changePass(PasswordRequest request) {
+        // 注意 你要对新的密码进行加密
+        request.setNewPass(securePass(request.getNewPass()));
+        int count = adminMapper.updatePassword(request);
+        if (count <= 0) {
+            throw new ServiceException("修改密码失败");
+        }
     }
     private String securePass(String password) {
         return SecureUtil.md5(password + PASS_SALT);

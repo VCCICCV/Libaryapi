@@ -2,6 +2,7 @@ package com.example.libary.mapper;
 
 import com.example.libary.controller.request.BaseRequest;
 import com.example.libary.controller.request.LoginRequest;
+import com.example.libary.controller.request.PasswordRequest;
 import com.example.libary.entity.Admin;
 import com.example.libary.entity.User;
 import org.apache.ibatis.annotations.Mapper;
@@ -28,5 +29,6 @@ public interface AdminMapper {
     void deleteById(Integer id);
 
     Admin getByUsernameAndPassword(@Param("username") String username, @Param ("password") String password);
+    int updatePassword(PasswordRequest request);
     Admin getByUsername(String username);
 }

@@ -3,6 +3,7 @@ package com.example.libary.service;
 import com.example.libary.controller.dto.LoginDTO;
 import com.example.libary.controller.request.BaseRequest;
 import com.example.libary.controller.request.LoginRequest;
+import com.example.libary.controller.request.PasswordRequest;
 import com.example.libary.entity.Admin;
 import com.example.libary.entity.User;
 import com.github.pagehelper.PageInfo;
@@ -28,4 +29,5 @@ public interface IAdminService {
     void deleteById(Integer id);
 
     LoginDTO login(LoginRequest request);
+    void changePass(PasswordRequest request);
 }

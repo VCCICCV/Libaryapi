@@ -24,7 +24,7 @@ public interface AdminMapper {
 
     Admin getById(Integer id);
 
-    void updateById(Admin admin);
+    void updateById(Admin user);
 
     void deleteById(Integer id);
 

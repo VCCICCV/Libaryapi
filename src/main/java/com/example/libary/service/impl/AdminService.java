@@ -1,5 +1,6 @@
 package com.example.libary.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.example.libary.controller.dto.LoginDTO;
 import com.example.libary.controller.request.BaseRequest;
@@ -15,6 +16,7 @@ import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -30,8 +32,8 @@ import java.util.List;
 public class AdminService implements IAdminService {
     @Autowired
     AdminMapper adminMapper;
-    private static final String DEFAULT_PASS = "123";
-    private static final String PASS_SALT = "123";
+    private static final String DEFAULT_PASS = "1234";
+    private static final String PASS_SALT = "cc";
 
     @Override
     public List<Admin> list() {
@@ -47,17 +49,17 @@ public class AdminService implements IAdminService {
 
     @Override
     public void save(Admin obj) {
-        // // 默认密码 123123
-        // if (StrUtil.isBlank(obj.getPassword())) {
-        //     obj.setPassword(DEFAULT_PASS);
-        // }
-        // obj.setPassword(securePass(obj.getPassword()));  // 设置md5加密，加盐
-        // try {
-        //     adminMapper.save(obj);
-        // } catch (DuplicateKeyException e) {
-        //     log.error("数据插入失败， username:{}", obj.getUsername(), e);
-        //     throw new ServiceException("用户名重复");
-        // }
+        // 默认密码 123123
+        if (StrUtil.isBlank(obj.getPassword())) {
+            obj.setPassword(DEFAULT_PASS);
+        }
+        obj.setPassword(securePass(obj.getPassword()));  // 设置md5加密，加盐
+        try {
+            adminMapper.save(obj);
+        } catch (DuplicateKeyException e) {
+            log.error("数据插入失败， username:{}", obj.getUsername(), e);
+            throw new ServiceException("用户名重复");
+        }
         adminMapper.save(obj);
 
     }
@@ -100,6 +102,7 @@ public class AdminService implements IAdminService {
         }
         LoginDTO loginDTO = new LoginDTO();
         BeanUtils.copyProperties(admin, loginDTO);
+
         // 生成token
         String token = TokenUtils.genToken(String.valueOf(admin.getId()), admin.getPassword());
         loginDTO.setToken(token);

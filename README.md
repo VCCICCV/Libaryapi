@@ -67,3 +67,7 @@ public class ServiceException extends RuntimeException{
     }
 }
 ```
+```sql
+清空表 
+TRUNCATE TABLE admin;
+```

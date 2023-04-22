@@ -53,15 +53,13 @@ public class AdminService implements IAdminService {
         if (StrUtil.isBlank(obj.getPassword())) {
             obj.setPassword(DEFAULT_PASS);
         }
-        obj.setPassword(securePass(obj.getPassword()));  // 设置md5加密，加盐
+        obj.setPassword(securePass(obj.getPassword()));  // 设置md5加密
         try {
             adminMapper.save(obj);
         } catch (DuplicateKeyException e) {
             log.error("数据插入失败， username:{}", obj.getUsername(), e);
             throw new ServiceException("用户名重复");
         }
-        adminMapper.save(obj);
-
     }
 
     @Override
@@ -85,12 +83,14 @@ public class AdminService implements IAdminService {
         Admin admin = null;
         try {
             admin = adminMapper.getByUsername(request.getUsername());
+            System.out.println("admin的值为"+admin);
         } catch (Exception e) {
             log.error("根据用户名{} 查询出错", request.getUsername());
+            log.error(String.valueOf(e));
             throw new ServiceException("用户名错误");
         }
         if (admin == null) {
-            throw new ServiceException("用户名或密码错误");
+            throw new ServiceException("用户不存在");
         }
         // 判断密码是否合法
         String securePass = securePass(request.getPassword());

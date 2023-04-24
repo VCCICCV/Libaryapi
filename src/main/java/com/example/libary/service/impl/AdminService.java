@@ -60,6 +60,8 @@ public class AdminService implements IAdminService {
             log.error("数据插入失败， username:{}", obj.getUsername(), e);
             throw new ServiceException("用户名重复");
         }
+        // 设置创建时间
+        obj.setCreatetime(new Date());
     }
 
     @Override

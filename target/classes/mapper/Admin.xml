@@ -12,11 +12,19 @@
         set username       = #{username},
             phone      = #{phone},
             email    = #{email},
-            updatetime = #{updatetime}
+            updatetime = #{updatetime},
+            status = #{status}
         where id = #{id}
     </update>
     <update id="updatePassword">
         update admin set password = #{newPass} where username = #{username} and password = #{password}
+    </update>
+    <update id="resetPassById">
+        update admin
+        set
+            updatetime = #{updatetime},
+            password = #{password}
+            where id = #{id}
     </update>
     <delete id="deleteById">
         delete

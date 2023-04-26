@@ -30,4 +30,5 @@ public interface IAdminService {
 
     LoginDTO login(LoginRequest request);
     void changePass(PasswordRequest request);
+    void resetPassById(Integer id);
 }

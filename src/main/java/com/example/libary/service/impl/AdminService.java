@@ -71,9 +71,9 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public void update(Admin user) {
-        user.setUpdatetime(new Date());
-        adminMapper.updateById(user);
+    public void update(Admin admin) {
+        admin.setUpdatetime(new Date());
+        adminMapper.updateById(admin);
     }
 
     @Override
@@ -118,6 +118,21 @@ public class AdminService implements IAdminService {
         int count = adminMapper.updatePassword(request);
         if (count <= 0) {
             throw new ServiceException("修改密码失败");
+        }
+    }
+
+    @Override
+    public void  resetPassById(Integer id) {
+        try {
+            Admin admin = adminMapper.getById(id);
+            if (admin == null) {
+                throw new ServiceException("用户不存在");
+            }
+            admin.setPassword(securePass(DEFAULT_PASS));  // 设置默认密码
+            adminMapper.resetPassById(admin);
+            // adminMapper.updateById(admin);  // 更新用户信息
+        } catch (ServiceException e) {
+            throw new ServiceException("重置密码失败");
         }
     }
     private String securePass(String password) {

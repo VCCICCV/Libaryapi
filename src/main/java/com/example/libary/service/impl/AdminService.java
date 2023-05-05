@@ -130,7 +130,6 @@ public class AdminService implements IAdminService {
             }
             admin.setPassword(securePass(DEFAULT_PASS));  // 设置默认密码
             adminMapper.resetPassById(admin);
-            // adminMapper.updateById(admin);  // 更新用户信息
         } catch (ServiceException e) {
             throw new ServiceException("重置密码失败");
         }

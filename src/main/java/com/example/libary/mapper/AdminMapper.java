@@ -28,7 +28,7 @@ public interface AdminMapper {
 
     void deleteById(Integer id);
 
-    Admin getByUsernameAndPassword(@Param("username") String username, @Param ("password") String password);
+    // Admin getByUsernameAndPassword(@Param("username") String username, @Param ("password") String password);
     int updatePassword(PasswordRequest request);
     Admin getByUsername(@Param("username") String username);
 

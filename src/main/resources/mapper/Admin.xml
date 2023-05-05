@@ -53,9 +53,9 @@
     <select id="getById" resultType="com.example.libary.entity.Admin">
         select * from admin where id = #{id}
     </select>
-    <select id="getByUsernameAndPassword" resultType="com.example.libary.entity.Admin">
-        select * from admin where username = #{ username } and password = #{password}
-    </select>
+<!--    <select id="getByUsernameAndPassword" resultType="com.example.libary.entity.Admin">-->
+<!--        select * from admin where username = #{ username } and password = #{password}-->
+<!--    </select>-->
     <select id="getByUsername" resultType="com.example.libary.entity.Admin">
         select * from admin where username = #{username}
     </select>

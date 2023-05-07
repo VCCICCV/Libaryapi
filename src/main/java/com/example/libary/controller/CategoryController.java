@@ -47,7 +47,7 @@ public class CategoryController {
         return Result.success(list);
     }
     @GetMapping ("/page")
-    public Result page(AdminPageRequest pageRequest) {
+    public Result page(CategoryPageRequest pageRequest) {
         return Result.success(categoryService.page(pageRequest));
     }
 }

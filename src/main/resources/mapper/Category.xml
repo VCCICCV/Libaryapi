@@ -10,28 +10,47 @@
         <result column="pid" property="pid"></result>
         <result column="createtime" property="createtime"></result>
         <result column="updatetime" property="updatetime"></result>
-        <collection property="children" ofType="com.example.libary.entity.Category" column="id" select="selectByPid"></collection>
+        <collection property="children" ofType="com.example.libary.entity.Category" column="id"
+                    select="selectByPid"></collection>
     </resultMap>
     <select id="selectByPid" resultType="com.example.libary.entity.Category">
-        select * from category where pid = #{pid}
+        select * from category where pid = #{id}
+<!--        <if test="name1 != null and name1 != ''">-->
+<!--            and name like concat('%', #{name1}, '%')-->
+<!--        </if>-->
+        order by id desc
     </select>
     <select id="listByCondition" resultMap="categoryMap">
-        select * from category
+        <!--        select * from category-->
+        <!--        <where>-->
+        <!--            isnull(pid)-->
+        <!--            <if test="name!= null and name != ''">-->
+        <!--                and name like concat('%',#{name},'%')-->
+        <!--            </if>-->
+        <!--        </where>-->
+        select c1.* from category c1
+        left join category c2
+        on c1.id = c2.pid
         <where>
-            isnull(pid)
-            <if test="name!= null and name != ''">
-                and name like concat('%',#{name},'%')
+            isnull(c1.pid)
+            <if test="name != null and name != ''">
+                and (c1.name like concat('%',#{name},'%') or c2.name like concat('%',#{name},'%'))
             </if>
         </where>
-        order by id desc
+        group by c1.id
+        order by c1.id desc
     </select>
 
     <insert id="save">
-        insert into category(name, remark) values (#{name}, #{remark})
+        insert into category(name, remark, pid)
+        values (#{name}, #{remark}, #{pid})
     </insert>
     <update id="updateById">
         update category
-        set name = #{name}, remark = #{remark}, updatetime = #{updatetime} where id = #{id}
+        set name       = #{name},
+            remark     = #{remark},
+            updatetime = #{updatetime}
+        where id = #{id}
     </update>
     <delete id="deleteById">
         delete
@@ -39,10 +58,14 @@
         where id = #{id}
     </delete>
     <select id="list" resultType="com.example.libary.entity.Category">
-        select * from category order by id desc
+        select *
+        from category
+        order by id desc
     </select>
 
     <select id="getById" resultType="com.example.libary.entity.Category">
-        select * from category where id = #{id}
+        select *
+        from category
+        where id = #{id}
     </select>
 </mapper>

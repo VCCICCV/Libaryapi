@@ -19,7 +19,7 @@
 
     <insert id="save">
         insert into book(name,description , publish_date,author,publisher,category,book_no,cover)
-        values (#{name}, #{description}, #{publish_Date},#{author},#{publisher},#{category},#{bookNo},#{cover})
+        values (#{name}, #{description}, #{publishDate},#{author},#{publisher},#{category},#{bookNo},#{cover})
     </insert>
     <update id="updateById">
         update book

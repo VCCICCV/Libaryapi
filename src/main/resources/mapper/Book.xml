@@ -25,11 +25,13 @@
         update book
         set name       = #{name},
             description     = #{description},
+            publish_date = #{publishDate},
             author = #{author},
             publisher = #{publisher},
             category = #{category},
             book_No = #{bookNo},
-            cover = #{cover}
+            cover = #{cover},
+            updatetime = #{updatetime}
 
         where id = #{id}
     </update>

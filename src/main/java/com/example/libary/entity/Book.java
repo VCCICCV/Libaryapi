@@ -1,5 +1,6 @@
 package com.example.libary.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,14 +12,9 @@ import java.time.LocalDate;
  * @DATE 2023/5/8 23:06
  */
 @Data
-public class Book implements Serializable {
+public class Book extends BaseEntity  implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    /**
-     * id
-     */
-    private Integer id;
-
     /**
      * 名称
      */
@@ -53,16 +49,6 @@ public class Book implements Serializable {
      * 标准码
      */
     private String bookNo;
-
-    /**
-     * 创建时间
-     */
-    private LocalDate createtime;
-
-    /**
-     * 更新时间
-     */
-    private LocalDate updatetime;
 
     /**
      * 封面

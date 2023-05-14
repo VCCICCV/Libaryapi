@@ -17,13 +17,13 @@ public class BaseEntity {
     /**
      * 创建时间
      */
-    @JsonFormat (pattern = "yyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat (pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private LocalDate createtime;
 
     /**
      * 更新时间
      */
-    @JsonFormat (pattern = "yyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat (pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private LocalDate updatetime;
 
 

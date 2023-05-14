@@ -11,7 +11,7 @@
                 name like concat('%',#{name},'%')
             </if>
             <if test="bookNo != null and bookNo != ''">
-                and bookNo = #{bookNo}
+                and book_no = #{bookNo}
             </if>
         </where>
         order by id desc
@@ -29,7 +29,7 @@
             author = #{author},
             publisher = #{publisher},
             category = #{category},
-            book_No = #{bookNo},
+            book_no = #{bookNo},
             cover = #{cover},
             updatetime = #{updatetime}
 

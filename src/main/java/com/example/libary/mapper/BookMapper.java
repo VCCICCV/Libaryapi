@@ -14,6 +14,7 @@ import java.util.List;
 @Mapper
 public interface BookMapper {
     List<Book> list();
+
     List<Book> listByCondition(BaseRequest baseRequest);
 
     void save(Book obj);

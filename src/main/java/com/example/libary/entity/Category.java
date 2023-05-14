@@ -17,9 +17,9 @@ public class Category {
     private String name;
     private String remark;
     private Integer pid;
-    @JsonFormat (pattern = "yyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat (pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private LocalDate createtime;
-    @JsonFormat(pattern = "yyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private LocalDate updatetime;
     private List<Category> children;
 }

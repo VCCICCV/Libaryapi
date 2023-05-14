@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @PROJECT_NAME Libaryapi
@@ -55,5 +56,6 @@ public class Book extends BaseEntity  implements Serializable {
      */
     private String cover;
 
-    public Book() {}
+    // public Book() {}
+    private List<String> categories;
 }

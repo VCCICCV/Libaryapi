@@ -1,7 +1,9 @@
 package com.example.libary.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.example.libary.controller.request.BaseRequest;
 import com.example.libary.entity.Book;
+import com.example.libary.exception.ServiceException;
 import com.example.libary.mapper.BookMapper;
 import com.example.libary.service.IBookService;
 import com.github.pagehelper.PageHelper;
@@ -37,7 +39,12 @@ public class BookService implements IBookService {
 
     @Override
     public void save(Book obj) {
-        bookMapper.save(obj);
+        try {
+            obj.setCategory(category(obj.getCategories()));
+            bookMapper.save(obj);
+        } catch (Exception e) {
+            throw new ServiceException("数据插入错误", e);
+        }
     }
 
     @Override
@@ -48,12 +55,25 @@ public class BookService implements IBookService {
     @Override
     public void update(Book obj) {
         // 更新时间
-        obj.setUpdatetime(LocalDate.now());
-        bookMapper.updateById(obj);
+        try {
+            obj.setCategory(category(obj.getCategories()));
+            obj.setUpdatetime(LocalDate.now());
+            bookMapper.updateById(obj);
+        } catch (Exception e) {
+            throw new ServiceException("数据更新错误", e);
+        }
     }
 
     @Override
     public void deleteById(Integer id) {
         bookMapper.deleteById(id);
+    }
+    private String category(List<String> categories){
+        StringBuffer sb = new StringBuffer();
+        if (CollUtil.isNotEmpty(categories)){
+            categories.forEach(v -> sb.append(v).append(" > "));
+            return sb.toString().substring(0,sb.lastIndexOf(" > "));
+        }
+        return sb.toString();
     }
 }

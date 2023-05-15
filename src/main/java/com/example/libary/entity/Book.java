@@ -55,7 +55,14 @@ public class Book extends BaseEntity  implements Serializable {
      * 封面
      */
     private String cover;
-
+    /**
+     * 积分
+     */
+    private Integer score;
+    /**
+     * 数量
+     */
+    private Integer nums;
     // public Book() {}
     private List<String> categories;
 }

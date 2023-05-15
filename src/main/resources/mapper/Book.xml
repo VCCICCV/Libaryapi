@@ -18,8 +18,8 @@
     </select>
 
     <insert id="save">
-        insert into book(name,description , publish_date,author,publisher,category,book_no,cover)
-        values (#{name}, #{description}, #{publishDate},#{author},#{publisher},#{category},#{bookNo},#{cover})
+        insert into book(name,description , publish_date,author,publisher,category,book_no,cover,score,nums)
+        values (#{name}, #{description}, #{publishDate},#{author},#{publisher},#{category},#{bookNo},#{cover},#{score},#{nums})
     </insert>
     <update id="updateById">
         update book
@@ -31,7 +31,9 @@
             category = #{category},
             book_no = #{bookNo},
             cover = #{cover},
-            updatetime = #{updatetime}
+            updatetime = #{updatetime},
+            score = #{score},
+            nums = #{nums}
 
         where id = #{id}
     </update>

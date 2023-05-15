@@ -68,6 +68,7 @@ public class Borrow{
     /**
      * 归还日期
      */
-    // private Date returnDate;
-
+    private LocalDate returnDate;
+    // 提醒状态 即将到期（-1）  已到期（当天）  已过期（超过归还日期之后）
+    private String note;
 }

@@ -1,5 +1,11 @@
 # Libaryapi
-
+登录页面
+![img.png](img.png)
+主页
+![img_1.png](img_1.png)
+list
+![img_2.png](img_2.png)
+[前端地址](https://github.com/VCCICCV/Libary_vue2)
 - mybayis 配置
 - java
 ```java

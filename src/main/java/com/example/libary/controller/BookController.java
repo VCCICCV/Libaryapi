@@ -55,4 +55,5 @@ public class BookController {
     public Result page(BookPageRequest pageRequest) {
         return Result.success(bookService.page(pageRequest));
     }
+
 }

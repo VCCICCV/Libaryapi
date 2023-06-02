@@ -23,6 +23,10 @@ import java.util.List;
 public class BorrowController {
     @Autowired
     IBorrowService borrowService;
+    @GetMapping("/lineCharts/{timeRange}")
+    public Result lineCharts(@PathVariable String timeRange){
+        return Result.success(borrowService.getCountByTimeRange(timeRange));
+    }
 
     @DeleteMapping ("/delete/{id}")
     public Result delete(@PathVariable Integer id) {

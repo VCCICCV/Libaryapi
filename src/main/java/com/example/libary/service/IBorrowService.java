@@ -23,4 +23,6 @@ public interface IBorrowService {
     void update(Borrow obj);
 
     void deleteById(Integer id);
+
+    Object getCountByTimeRange(String timeRange);
 }

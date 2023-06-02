@@ -49,7 +49,7 @@ public class AdminService implements IAdminService {
 
     @Override
     public void save(Admin obj) {
-        // 默认密码 123123
+        // 默认密码 1234
         if (StrUtil.isBlank(obj.getPassword())) {
             obj.setPassword(DEFAULT_PASS);
         }
@@ -64,7 +64,6 @@ public class AdminService implements IAdminService {
         }
 
     }
-
     @Override
     public Admin getById(Integer id) {
         return adminMapper.getById(id);

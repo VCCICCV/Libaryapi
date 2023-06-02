@@ -45,7 +45,6 @@
     <select id="list" resultType="com.example.libary.entity.Book">
         select * from book order by id desc
     </select>
-
     <select id="getById" resultType="com.example.libary.entity.Book">
         select * from book where id = #{id}
     </select>

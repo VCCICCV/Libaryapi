@@ -2,7 +2,9 @@ package com.example.libary.mapper;
 
 import com.example.libary.controller.request.BaseRequest;
 import com.example.libary.entity.Borrow;
+import com.example.libary.mapper.po.BorrowReturCountP0;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,4 +26,6 @@ public interface BorrowMapper {
     void updateById(Borrow user);
 
     void deleteById(Integer id);
+
+    List<BorrowReturCountP0> getCountByTimeRange(@Param("timeRange") String timeRange, @Param("type") int type);
 }
